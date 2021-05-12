@@ -35,24 +35,11 @@ _context.SaveChanges();
     
 }
 
-[HttpPost]
-public IActionResult Delete(int Id){
-
-    //get the Item
-
-    var item = _context.Items.Where(x => x.Id == Id).ToList();
-    Console.WriteLine(item.First().Description);
-    if(item.Count > 0){
-         _context.Items.Remove(item.First());
-        _context.SaveChanges();
-          
-
-    }
-
-
-       
-
-      return RedirectToAction("Index");
+public IActionResult Delete(int id){
+    var item = _context.Items.FirstOrDefault(x =>x.Id == id);
+    _context.Items.Remove(item);
+    _context.SaveChanges();
+    return RedirectToAction("Index");
 
 }
 
